@@ -1,0 +1,7 @@
+household/lib
+household/bin
+__pycache__/
+instance/
+.webassets-cache
+.vscode
+.DS_Store
