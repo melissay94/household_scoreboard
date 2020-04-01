@@ -25,10 +25,9 @@ def create_user(name, email):
 # PUT a specific user
 def update_user(id, name, email):
   user = User.query.get(id)
-  print(name, code)
   if user:
     user.name = name or user.name
-    user.code = email or user.email
+    user.email = email or user.email
     db.session.commit()
     return jsonify(user.as_dict())
   else:
