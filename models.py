@@ -25,6 +25,7 @@ class Household(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String, unique=True, nullable=False)
+  code = db.Column(db.String, nullable=False)
   members = db.relationship("User", backref="household", lazy=True)
   chores = db.relationship("Chore", 
     secondary=household_chores, 
@@ -34,6 +35,9 @@ class Household(db.Model):
 
   def __repr__(self):
     return f"Household {self.name}"
+
+  def as_dict(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
   
 class User(db.Model):
   __tablename__ = "users"
@@ -52,6 +56,9 @@ class User(db.Model):
   def __repr__(self):
     return f"User {self.name} has email {self.email} and is in household {self.household_id}"
 
+  def as_dict(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 class Chore(db.Model):
   __tablename__ = "chores"
 
@@ -62,4 +69,7 @@ class Chore(db.Model):
 
   def __repr__(self):
     return f"Chore {self.name} is {self.description} and has a {self.difficulty} rating"
+
+  def as_dict(self):
+    return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
