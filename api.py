@@ -1,6 +1,7 @@
 from models import app, Household
 from flask import jsonify, request
 from crud.household import get_all_households, get_household, create_household, update_household, destroy_household
+from crud.user import get_all_users, get_user, create_user, update_user, destroy_user
 
 @app.errorhandler(Exception)
 def unhandled_exception(e):
@@ -25,3 +26,22 @@ def household_specific(id):
     return update_household(id, name, code)
   else:
     return destroy_household(id)
+
+@app.route("/users", methods=["GET", "POST"])
+def user_all():
+  if request.method == "GET":
+    return get_all_users()
+  
+  return create_user(request.form["name"], request.form["email"])
+
+@app.route("/users/<int:id>", methods=["GET", "PUT", "DELETE"])
+def user_specific(id):
+  if request.method == "GET":
+    return get_user(id)
+  elif request.method == "PUT":
+    name = request.form["name"]
+    email = request.form["email"]
+    return update_user(id, name, email)
+  else:
+    return destroy_user(id)
+
