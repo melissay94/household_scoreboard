@@ -1,5 +1,5 @@
-household/lib
-household/bin
+lib
+bin
 __pycache__/
 instance/
 .webassets-cache
