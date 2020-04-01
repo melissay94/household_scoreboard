@@ -10,6 +10,7 @@ def unhandled_exception(e):
   message = e.__str__()
   return jsonify(message=message.split(":")[0])
 
+# Routes for households
 @app.route("/households", methods=["GET", "POST"])
 def household_all():
   if request.method == "GET":
@@ -28,6 +29,7 @@ def household_specific(id):
   else:
     return destroy_household(id)
 
+# Routes for users
 @app.route("/users", methods=["GET", "POST"])
 def user_all():
   if request.method == "GET":
@@ -46,15 +48,16 @@ def user_specific(id):
   else:
     return destroy_user(id)
 
+# # Routes for chores
 @app.route("/chores", methods=["GET", "POST"])
-def chore():
+def chore_all():
   if request.method == "GET":
     return get_all_chores()
   
   return create_chore(request.form["name"], request.form["description"], request.form["difficulty"])
 
 @app.route("/chores/<int:id>", methods=["GET", "PUT", "DELETE"])
-def user_specific(id):
+def chore_specific(id):
   if request.method == "GET":
     return get_chore(id)
   elif request.method == "PUT":
